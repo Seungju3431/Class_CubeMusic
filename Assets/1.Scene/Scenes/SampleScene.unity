@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0aa30a22117434cabcfe612d4133dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 128
+  BPM: 120
   notePrefabs: {fileID: 2731166262567048825, guid: 48941b7e430b629438d7c6966898315f, type: 3}
   noteSpawner: {fileID: 220342082}
 --- !u!114 &157574621

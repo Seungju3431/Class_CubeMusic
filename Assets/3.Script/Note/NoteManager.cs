@@ -12,6 +12,8 @@ public class NoteManager : MonoBehaviour
      60/120 -> 0.5초에 1개씩
      
      */
+    Queue<GameObject> Q_note = new Queue<GameObject>(); //큐 초기화
+
 
     [Header("BPM을 설정하시오.")]
     public int BPM = 0;
@@ -26,6 +28,7 @@ public class NoteManager : MonoBehaviour
     private void Awake()
     {
         timemanager = FindObjectOfType<Timemanager>();   
+
     }
 
     private void Update()
@@ -33,13 +36,32 @@ public class NoteManager : MonoBehaviour
         current_time += Time.deltaTime;
         if (current_time > (60d / BPM))
         {
-            GameObject note_ob =
-                    Instantiate(notePrefabs, 
+            //GameObject note_ob;
+            //        Instantiate(notePrefabs, 
+            //        noteSpawner.position, Quaternion.identity);
+
+            //note_ob.transform.SetParent(this.transform); //Note_UI를 부모로
+
+
+            if (Q_note.Count > 0)
+            {
+
+                var note_ob = Q_note.Dequeue();
+                note_ob.SetActive(true);
+                timemanager.boxnote_List.Add(note_ob);
+            }
+            else
+            {
+                GameObject note_yb =
+                Instantiate(notePrefabs,
                     noteSpawner.position, Quaternion.identity);
+                note_yb.transform.SetParent(this.transform);
+                timemanager.boxnote_List.Add(note_yb);
+            }
 
-            note_ob.transform.SetParent(this.transform); //Note_UI를 부모로
 
-            timemanager.boxnote_List.Add(note_ob);
+
+            //timemanager.boxnote_List.Add(note_ob);
 
             current_time -= (60d / BPM);
         }
@@ -57,8 +79,12 @@ public class NoteManager : MonoBehaviour
                     Debug.Log("Miss");
                 }
             }
+            
+            col.gameObject.transform.localPosition = noteSpawner.localPosition;
+            col.gameObject.SetActive(false);
+            Q_note.Enqueue(col.gameObject);
             timemanager.boxnote_List.Remove(col.gameObject);
-            Destroy(col.gameObject);
+            //Destroy(col.gameObject);
         }
 
     }
