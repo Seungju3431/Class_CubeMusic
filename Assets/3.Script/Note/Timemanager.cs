@@ -16,8 +16,13 @@ public class Timemanager : MonoBehaviour
 
     public List<GameObject> boxnote_List = new List<GameObject>();
 
+    [SerializeField] private EffectManager effect;
+
     private void Start()
     {
+        effect = FindObjectOfType<EffectManager>();
+
+      //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
         TimeBox = new Vector2[timmingRect.Length];
 
         //최소,최대값
@@ -50,6 +55,8 @@ public class Timemanager : MonoBehaviour
                     }
                     //판정이 난 상황
                     Debug.Log(Debug_Note(j));
+                    effect.NoteHit_Effect();
+                    effect.Judgement_Effect(j);
                     return true;
                 }
             }
