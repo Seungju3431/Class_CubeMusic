@@ -62,6 +62,8 @@
     <Compile Include="Assets\3.Script\Note\Timemanager.cs" />
     <Compile Include="Assets\3.Script\Note\Note.cs" />
     <Compile Include="Assets\3.Script\ETC\EffectManager.cs" />
+    <Compile Include="Assets\3.Script\ETC\ScoreManager.cs" />
+    <Compile Include="Assets\3.Script\ETC\ComboManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

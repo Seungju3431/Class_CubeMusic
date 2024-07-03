@@ -17,10 +17,14 @@ public class Timemanager : MonoBehaviour
     public List<GameObject> boxnote_List = new List<GameObject>();
 
     [SerializeField] private EffectManager effect;
+    [SerializeField] private ScoreManager score;
+    [SerializeField] private ComboManager combo;
 
     private void Start()
     {
         effect = FindObjectOfType<EffectManager>();
+        score = FindObjectOfType<ScoreManager>();
+        combo = FindObjectOfType<ComboManager>();
 
       //天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天
         TimeBox = new Vector2[timmingRect.Length];
@@ -54,9 +58,19 @@ public class Timemanager : MonoBehaviour
                         n.HiedNote();
                     }
                     //っ薑檜 陪 鼻��
-                    Debug.Log(Debug_Note(j));
+                    //Debug.Log(Debug_Note(j));
                     effect.NoteHit_Effect();
                     effect.Judgement_Effect(j);
+                    score.AddScore(j);
+                    // j 0 -> ぷめ / j 1 -> 籐 / 2 授 / 3 漆萄
+                    if (j < 3)
+                    {
+                        combo.Addcombo();
+                    }
+                    else
+                    {
+                        combo.ResetCombo();
+                    }
                     return true;
                 }
             }
