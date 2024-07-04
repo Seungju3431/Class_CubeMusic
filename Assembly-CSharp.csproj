@@ -57,13 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\3.Script\Player\PlayerController.cs" />
+    <Compile Include="Assets\3.Script\ETC\ScoreManager.cs" />
     <Compile Include="Assets\3.Script\Note\CenterFlame.cs" />
     <Compile Include="Assets\3.Script\Note\NoteManager.cs" />
     <Compile Include="Assets\3.Script\Note\Timemanager.cs" />
     <Compile Include="Assets\3.Script\Note\Note.cs" />
     <Compile Include="Assets\3.Script\ETC\EffectManager.cs" />
-    <Compile Include="Assets\3.Script\ETC\ScoreManager.cs" />
     <Compile Include="Assets\3.Script\ETC\ComboManager.cs" />
+    <Compile Include="Assets\3.Script\ETC\DeadZone.cs" />
+    <Compile Include="Assets\3.Script\ETC\CameraManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
