@@ -64,8 +64,9 @@
     <Compile Include="Assets\3.Script\Note\Note.cs" />
     <Compile Include="Assets\3.Script\ETC\EffectManager.cs" />
     <Compile Include="Assets\3.Script\ETC\ComboManager.cs" />
-    <Compile Include="Assets\3.Script\ETC\DeadZone.cs" />
     <Compile Include="Assets\3.Script\ETC\CameraManager.cs" />
+    <Compile Include="Assets\3.Script\ETC\DeadZone.cs" />
+    <Compile Include="Assets\3.Script\ETC\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isCanMove && isCanRot)
             {
+                AudioManager.instance.PlaySFX("Clap");
 
                 Clac();
 
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reset_Falling()
     {
+        AudioManager.instance.PlaySFX("Falling");
         isFalling = false;
         player_r.useGravity = false;
         player_r.isKinematic = true;
