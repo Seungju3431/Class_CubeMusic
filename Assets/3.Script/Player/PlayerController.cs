@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool isCanpressKey = true;
+
     [Header("이동")]
     [SerializeField] private float MoveSpeed = 3f;
 
     //키보드 입력과 실제 플레이어의 움직임이 다름.
     [SerializeField] private Vector3 Input_Direction = new Vector3();//키보드
     [SerializeField] private Vector3 Dest_pos = new Vector3();//실제 움직이는 방향
-
+    public Vector3 Destpos
+    {
+        get { return Dest_pos; }
+    }
     [Header("회전")]
     [SerializeField] private float spinSpeed = 270f;
     [SerializeField] private Vector3 Input_rotDirection = new Vector3();
@@ -63,7 +68,8 @@ public class PlayerController : MonoBehaviour
             Input.GetKeyDown(KeyCode.S) ||
             Input.GetKeyDown(KeyCode.D))
         {
-            if (isCanMove && isCanRot)
+            Debug.Log("너 들어오고 있니?");
+            if (isCanMove && isCanRot && isCanpressKey)
             {
                 AudioManager.instance.PlaySFX("Clap");
 

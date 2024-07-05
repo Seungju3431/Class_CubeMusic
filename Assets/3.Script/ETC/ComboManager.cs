@@ -18,6 +18,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private Text comboText;
 
     private int current_combo;
+    private int Max_combo = 0;
 
     private Animator ani;
     private string Key = "Combo";
@@ -42,6 +43,11 @@ public class ComboManager : MonoBehaviour
     {
         current_combo += combo;
         comboText.text = string.Format("{0:#,##0}", current_combo);
+        if (Max_combo < current_combo)
+        {
+            Max_combo = current_combo;
+        }
+
         if (current_combo >= 2)
         {
             combo_img.SetActive(true);
@@ -50,6 +56,10 @@ public class ComboManager : MonoBehaviour
         }
     }
 
+    public int GetMaxcombo()
+    {
+        return Max_combo;
+    }
 
 
 }

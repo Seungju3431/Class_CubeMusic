@@ -32,4 +32,9 @@ public class ScoreManager : MonoBehaviour
         Score_Text.text = string.Format("{0:#,##0}", Current_Score); //1000¡° ≥—∞Â¿ª Ω√
         ani.SetTrigger(Key);
     }
+
+    public int GetScore()
+    {
+        return Current_Score;
+    }
 }

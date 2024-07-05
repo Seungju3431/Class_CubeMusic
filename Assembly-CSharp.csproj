@@ -65,8 +65,13 @@
     <Compile Include="Assets\3.Script\ETC\EffectManager.cs" />
     <Compile Include="Assets\3.Script\ETC\ComboManager.cs" />
     <Compile Include="Assets\3.Script\ETC\CameraManager.cs" />
-    <Compile Include="Assets\3.Script\ETC\DeadZone.cs" />
     <Compile Include="Assets\3.Script\ETC\AudioManager.cs" />
+    <Compile Include="Assets\3.Script\ETC\DeadZone.cs" />
+    <Compile Include="Assets\3.Script\ETC\Stage.cs" />
+    <Compile Include="Assets\3.Script\Plane\Basic_Plane.cs" />
+    <Compile Include="Assets\3.Script\Plane\StageController.cs" />
+    <Compile Include="Assets\3.Script\ETC\Result.cs" />
+    <Compile Include="Assets\3.Script\Plane\GoalPlate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

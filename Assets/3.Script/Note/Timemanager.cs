@@ -16,17 +16,22 @@ public class Timemanager : MonoBehaviour
 
     public List<GameObject> boxnote_List = new List<GameObject>();
 
+    private int[] Judgment_Record = new int[5];
+
     [SerializeField] private EffectManager effect;
     [SerializeField] private ScoreManager score;
     [SerializeField] private ComboManager combo;
-
+    [SerializeField] private PlayerController Player;
+    [SerializeField] private StageController stage;
     private void Start()
     {
         effect = FindObjectOfType<EffectManager>();
         score = FindObjectOfType<ScoreManager>();
         combo = FindObjectOfType<ComboManager>();
+        Player = FindObjectOfType<PlayerController>();
+        stage = FindObjectOfType<StageController>();
 
-      //天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天
+        //天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天
         TimeBox = new Vector2[timmingRect.Length];
 
         //譆模,譆渠高
@@ -60,24 +65,58 @@ public class Timemanager : MonoBehaviour
                     //っ薑檜 陪 鼻��
                     //Debug.Log(Debug_Note(j));
                     effect.NoteHit_Effect();
-                    effect.Judgement_Effect(j);
-                    score.AddScore(j);
-                    // j 0 -> ぷめ / j 1 -> 籐 / 2 授 / 3 漆萄
-                    if (j < 3)
+
+                    if (Check_NextPlate())
                     {
-                        combo.Addcombo();
+
+                        effect.Judgement_Effect(j);
+                        score.AddScore(j);
+                        stage.ShowNextPlate();
+
+                        // j 0 -> ぷめ / j 1 -> 籐 / 2 授 / 3 漆萄
+                        if (j < 3)
+                        {
+                            combo.Addcombo();
+                        }
+                        else
+                        {
+                            combo.ResetCombo();
+                        }
+                        Judgment_Record[j]++;
                     }
                     else
                     {
+                        effect.Judgement_Effect(5);
                         combo.ResetCombo();
                     }
                     return true;
                 }
             }
         }
+        combo.ResetCombo();
+        Judgment_miss();
         return false;
     }
 
+    public bool Check_NextPlate()
+    {
+        if (Physics.Raycast(Player.Destpos, Vector3.down, out RaycastHit h, 1.1f))
+        {
+            if (h.transform.CompareTag("BasicPlate"))
+            {
+                if (h.transform.TryGetComponent(out Basic_Plane b))
+                {
+                    if (b.flag)
+                    {
+                        b.flag = false;
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
     public string Debug_Note(int x)
     {
         switch (x)
@@ -94,5 +133,13 @@ public class Timemanager : MonoBehaviour
                 return string.Empty;
 
         }
+    }
+    private void Judgment_miss()
+    {
+        Judgment_Record[4]++;
+    }
+    public int[] Get_JudgmentRecord()
+    {
+        return Judgment_Record;
     }
 }

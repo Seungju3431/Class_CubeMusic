@@ -24,46 +24,57 @@ public class NoteManager : MonoBehaviour
     [SerializeField] private GameObject notePrefabs;
     [SerializeField] private Transform noteSpawner;
 
+    private bool isnoteActive = true;
+
     private Timemanager timemanager;
+    private ComboManager combo;
+    private EffectManager effect;
     private void Awake()
     {
-        timemanager = FindObjectOfType<Timemanager>();   
+
+        timemanager = FindObjectOfType<Timemanager>();
+        combo = FindObjectOfType<ComboManager>();
+        effect = FindObjectOfType<EffectManager>();
 
     }
 
     private void Update()
     {
-        current_time += Time.deltaTime;
-        if (current_time > (60d / BPM))
+        if (isnoteActive)
         {
-            //GameObject note_ob;
-            //        Instantiate(notePrefabs, 
-            //        noteSpawner.position, Quaternion.identity);
 
-            //note_ob.transform.SetParent(this.transform); //Note_UI를 부모로
-
-
-            if (Q_note.Count > 0)
+            current_time += Time.deltaTime;
+            if (current_time > (60d / BPM))
             {
+                //GameObject note_ob;
+                //        Instantiate(notePrefabs, 
+                //        noteSpawner.position, Quaternion.identity);
 
-                var note_ob = Q_note.Dequeue();
-                note_ob.SetActive(true);
-                timemanager.boxnote_List.Add(note_ob);
+                //note_ob.transform.SetParent(this.transform); //Note_UI를 부모로
+
+
+                if (Q_note.Count > 0)
+                {
+
+                    var note_ob = Q_note.Dequeue();
+                    note_ob.SetActive(true);
+                    timemanager.boxnote_List.Add(note_ob);
+                }
+                else
+                {
+                    GameObject note_yb =
+                    Instantiate(notePrefabs,
+                        noteSpawner.position, Quaternion.identity);
+                    note_yb.transform.SetParent(this.transform);
+                    timemanager.boxnote_List.Add(note_yb);
+                }
+
+
+
+                //timemanager.boxnote_List.Add(note_ob);
+
+                current_time -= (60d / BPM);
             }
-            else
-            {
-                GameObject note_yb =
-                Instantiate(notePrefabs,
-                    noteSpawner.position, Quaternion.identity);
-                note_yb.transform.SetParent(this.transform);
-                timemanager.boxnote_List.Add(note_yb);
-            }
-
-
-
-            //timemanager.boxnote_List.Add(note_ob);
-
-            current_time -= (60d / BPM);
         }
     }
 
@@ -76,10 +87,12 @@ public class NoteManager : MonoBehaviour
             {
                 if (n.GetNoteflag())
                 {
-                    Debug.Log("Miss");
+                    //Debug.Log("Miss");
+                    effect.Judgement_Effect(4);
+                    combo.ResetCombo();
                 }
             }
-            
+
             col.gameObject.transform.localPosition = noteSpawner.localPosition;
             col.gameObject.SetActive(false);
             Q_note.Enqueue(col.gameObject);
@@ -87,5 +100,16 @@ public class NoteManager : MonoBehaviour
             //Destroy(col.gameObject);
         }
 
+    }
+    public void Remove_note()
+    {
+        isnoteActive = false;
+        for (int i = 0; i < timemanager.boxnote_List.Count; i++)
+        {
+            timemanager.boxnote_List[i].SetActive(false);
+            Q_note.Enqueue(timemanager.boxnote_List[i]);
+
+        }
+        timemanager.boxnote_List.Clear();
     }
 }
